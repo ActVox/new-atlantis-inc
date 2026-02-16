@@ -5,9 +5,9 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "About - New Atlantis",
+  title: "About - New Atlantis Inc",
   description:
-    "Learn about New Atlantis, our vision, values, and mission to help businesses succeed through education, planning, and analysis.",
+    "Learn about New Atlantis Inc, our vision, values, and mission to help businesses succeed through education, planning, and analysis.",
 }
 
 const pillars = [

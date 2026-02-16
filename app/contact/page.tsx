@@ -5,9 +5,9 @@ import { SiteFooter } from "@/components/site-footer"
 import { ContactForm } from "@/components/contact-form"
 
 export const metadata: Metadata = {
-  title: "Contact - New Atlantis",
+  title: "Contact - New Atlantis Inc",
   description:
-    "Get in touch with New Atlantis for expert business consulting, planning, and strategic analysis.",
+    "Get in touch with New Atlantis Inc for expert business consulting, planning, and strategic analysis.",
 }
 
 export default function ContactPage() {
@@ -73,7 +73,7 @@ export default function ContactPage() {
                   {'"Any business venture goes through bumpy roads. We help with a smoother ride."'}
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
-                  {'— New Atlantis'}
+                  {'— New Atlantis Inc'}
                 </p>
               </div>
             </aside>
