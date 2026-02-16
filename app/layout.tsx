@@ -14,9 +14,12 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: 'New Atlantis - Your Route Map to Business Success',
+  title: 'New Atlantis Inc - Your Route Map to Business Success',
   description:
-    'New Atlantis provides expert business consulting, planning, and analysis to help startups and established companies succeed.',
+    'New Atlantis Inc provides expert business consulting, planning, and analysis to help startups and established companies succeed.',
+  icons: {
+    icon: '/favicon.jpg',
+  },
 }
 
 export default function RootLayout({

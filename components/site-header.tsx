@@ -1,9 +1,10 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
-import { Menu, X, Compass } from "lucide-react"
+import { Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 
 const navItems = [
@@ -20,10 +21,16 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border/60 bg-card/80 backdrop-blur-sm sticky top-0 z-50">
       <div className="mx-auto max-w-5xl flex items-center justify-between px-6 py-4">
-        <Link href="/" className="flex items-center gap-2 group">
-          <Compass className="h-6 w-6 text-primary transition-transform group-hover:rotate-45" strokeWidth={1.5} />
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
+            src="/favicon.jpg"
+            alt="New Atlantis Inc logo"
+            width={32}
+            height={32}
+            className="rounded-sm transition-transform group-hover:rotate-12"
+          />
           <span className="font-serif text-xl tracking-wide text-foreground">
-            New Atlantis
+            New Atlantis Inc
           </span>
         </Link>
 
