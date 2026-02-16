@@ -4,9 +4,9 @@ import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 
 export const metadata: Metadata = {
-  title: "Resources - New Atlantis",
+  title: "Resources - New Atlantis Inc",
   description:
-    "Useful business resource links curated by New Atlantis, including government services, business filings, and tax information.",
+    "Useful business resource links curated by New Atlantis Inc, including government services, business filings, and tax information.",
 }
 
 interface LinkGroup {
