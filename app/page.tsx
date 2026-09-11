@@ -1,49 +1,31 @@
+import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
 import { FileText, TrendingUp, ShieldCheck, Target } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ServiceCard } from "@/components/service-card"
+import { COPY, SERVICES, pageMetadata, type ServiceKey } from "@/lib/seo"
+import { JsonLd, professionalServiceSchema } from "@/lib/structured-data"
 
-const services = [
-  {
-    icon: <FileText className="h-5 w-5" />,
-    title: "Business Plan Evaluation",
-    items: [
-      "Assisting in creating a sound Business Plan",
-      "Evaluating your Mission, Executive Summary, Business & Financial Objectives, as well as other key components of your Business Plan",
-    ],
-  },
-  {
-    icon: <TrendingUp className="h-5 w-5" />,
-    title: "Vitality & Sustainability Strategies",
-    items: [
-      "Identifying your Main Competencies and Value Proposition",
-      "Analyzing effects of market and economic changes",
-      "Creating the strategies that set apart your business from your competitors",
-    ],
-  },
-  {
-    icon: <ShieldCheck className="h-5 w-5" />,
-    title: "Risk Evaluation & Mitigation",
-    items: [
-      "Impact to financial projections from market changes",
-      "Regulatory and legal compliance",
-    ],
-  },
-  {
-    icon: <Target className="h-5 w-5" />,
-    title: "Business & Marketing Strategies",
-    items: [
-      "Identifying appropriate marketing strategies and their implementation",
-      "Advancing your Competitive Advantage",
-    ],
-  },
-]
+export const metadata: Metadata = pageMetadata("home")
+
+/**
+ * Service copy lives in lib/seo.ts so JSON-LD and llms.txt reuse it; icons are
+ * presentation-only. Keyed by ServiceKey, not by title, so renaming display
+ * copy is a compile error here rather than a silently missing icon.
+ */
+const serviceIcons: Record<ServiceKey, React.ReactNode> = {
+  "business-plan": <FileText className="h-5 w-5" />,
+  vitality: <TrendingUp className="h-5 w-5" />,
+  risk: <ShieldCheck className="h-5 w-5" />,
+  marketing: <Target className="h-5 w-5" />,
+}
 
 export default function HomePage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <JsonLd data={professionalServiceSchema()} />
       <SiteHeader />
 
       <main className="flex-1">
@@ -61,14 +43,11 @@ export default function HomePage() {
           </div>
 
           <div className="relative mx-auto max-w-5xl px-6 py-24 md:py-36">
-            <p className="text-sm uppercase tracking-widest text-primary mb-4">
-              Your Route Map to Business Success
-            </p>
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground text-balance max-w-2xl">
-              Navigate the path to your business success
+            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground text-balance max-w-3xl">
+              {COPY.heroHeadline}
             </h1>
-            <p className="mt-6 text-lg leading-relaxed text-muted-foreground max-w-xl">
-              Any business venture goes through bumpy roads. We help with a smoother ride since many unpleasant surprises can be prevented through planning, research, and implementation of best practices.
+            <p className="mt-8 text-lg leading-relaxed text-muted-foreground max-w-xl">
+              {COPY.heroLead}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <Link
@@ -99,8 +78,13 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-6 md:grid-cols-2">
-            {services.map((service) => (
-              <ServiceCard key={service.title} {...service} />
+            {SERVICES.map((service) => (
+              <ServiceCard
+                key={service.title}
+                icon={serviceIcons[service.key]}
+                title={service.title}
+                items={service.items}
+              />
             ))}
           </div>
         </section>

@@ -2,17 +2,24 @@ import type { Metadata } from "next"
 import { ExternalLink } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
+import { COPY, pageMetadata } from "@/lib/seo"
+import { JsonLd, breadcrumbSchema, webPageSchema } from "@/lib/structured-data"
 
-export const metadata: Metadata = {
-  title: "Resources - New Atlantis Inc",
-  description:
-    "Useful business resource links curated by New Atlantis Inc, including government services, business filings, and tax information.",
-}
+export const metadata: Metadata = pageMetadata("links")
 
 interface LinkGroup {
   category: string
   links: { label: string; href: string }[]
 }
+
+/**
+ * KNOWN ISSUE — several labels share one href: four Cook County entries all
+ * point at cookcountytreasurer.com, and idfpr.com / estado.gobierno.pr are each
+ * used twice. The deep links for the individual services were not verifiable at
+ * the time of writing (cookcountytreasurer.com presents an untrusted
+ * certificate), and guessing URLs would trade redundant-but-working links for
+ * 404s, which is strictly worse. Left as-is pending the correct URLs.
+ */
 
 const linkGroups: LinkGroup[] = [
   {
@@ -113,10 +120,6 @@ const linkGroups: LinkGroup[] = [
         label: "Puerto Rico Corporation Search",
         href: "https://www.estado.gobierno.pr/",
       },
-      {
-        label: "World Corporation/LLC Search",
-        href: "#",
-      },
     ],
   },
 ]
@@ -124,6 +127,9 @@ const linkGroups: LinkGroup[] = [
 export default function LinksPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <JsonLd
+        data={[webPageSchema("links", "CollectionPage"), breadcrumbSchema("links")]}
+      />
       <SiteHeader />
 
       <main className="flex-1">
@@ -137,7 +143,7 @@ export default function LinksPage() {
               Useful business resources
             </h1>
             <p className="mt-4 text-lg text-muted-foreground leading-relaxed max-w-xl">
-              A curated collection of government services, business filings, and regulatory resources to support your ventures.
+              {COPY.linksLead}
             </p>
           </div>
         </section>

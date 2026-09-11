@@ -1,18 +1,19 @@
 import type { Metadata } from "next"
-import { Mail, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ContactForm } from "@/components/contact-form"
+import { COPY, pageMetadata } from "@/lib/seo"
+import { JsonLd, breadcrumbSchema, webPageSchema } from "@/lib/structured-data"
 
-export const metadata: Metadata = {
-  title: "Contact - New Atlantis Inc",
-  description:
-    "Get in touch with New Atlantis Inc for expert business consulting, planning, and strategic analysis.",
-}
+export const metadata: Metadata = pageMetadata("contact")
 
 export default function ContactPage() {
   return (
     <div className="min-h-screen flex flex-col">
+      <JsonLd
+        data={[webPageSchema("contact", "ContactPage"), breadcrumbSchema("contact")]}
+      />
       <SiteHeader />
 
       <main className="flex-1">
@@ -26,7 +27,7 @@ export default function ContactPage() {
               Start a conversation with us
             </h1>
             <p className="mt-4 text-lg text-muted-foreground leading-relaxed max-w-xl">
-              Whether you are starting a new venture or looking to strengthen an existing one, we are here to help.
+              {COPY.contactLead}
             </p>
           </div>
         </section>
@@ -47,18 +48,6 @@ export default function ContactPage() {
               <div>
                 <div className="flex items-center gap-3 mb-3">
                   <div className="flex items-center justify-center w-9 h-9 bg-primary/10 text-primary rounded-sm">
-                    <Mail className="h-4 w-4" />
-                  </div>
-                  <h3 className="font-serif text-base text-foreground">Email</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed pl-12">
-                  info@newatlantis.us
-                </p>
-              </div>
-
-              <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-9 h-9 bg-primary/10 text-primary rounded-sm">
                     <MapPin className="h-4 w-4" />
                   </div>
                   <h3 className="font-serif text-base text-foreground">Location</h3>
@@ -70,7 +59,7 @@ export default function ContactPage() {
 
               <div className="border-t border-border/60 pt-8">
                 <p className="text-sm text-muted-foreground leading-relaxed italic">
-                  {'"Any business venture goes through bumpy roads. We help with a smoother ride."'}
+                  {`"${COPY.pullQuote}"`}
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   {'— New Atlantis Inc'}
