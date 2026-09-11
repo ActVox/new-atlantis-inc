@@ -1,0 +1,11 @@
+# pnpm 11 reads settings from this file; the "pnpm" field in package.json is ignored.
+
+# sharp is Next.js's image optimizer — it needs its install script to build the
+# native binary, otherwise `next build` cannot optimize images.
+onlyBuiltDependencies:
+  - sharp
+
+# Carried over from the (now ignored) "pnpm.overrides" field in package.json.
+overrides:
+  '@types/react': 19.2.7
+  '@types/react-dom': 19.2.3
