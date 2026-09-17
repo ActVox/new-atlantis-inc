@@ -9,7 +9,12 @@ import type { Metadata } from "next"
  */
 
 export const SITE = {
-  url: "https://www.newatlantis.us",
+  /**
+   * Canonical origin. The apex is the primary host on Vercel; www is attached
+   * as a 308 redirect to it. Every canonical, sitemap, OG and llms.txt URL
+   * derives from this value.
+   */
+  url: "https://newatlantis.us",
   name: "New Atlantis Inc",
   legalName: "New Atlantis, Inc.",
   tagline: "Your Route Map to Your Business Success",

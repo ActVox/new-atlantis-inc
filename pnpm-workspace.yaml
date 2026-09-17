@@ -1,9 +1,11 @@
 # pnpm 11 reads settings from this file; the "pnpm" field in package.json is ignored.
 
-# sharp is Next.js's image optimizer — it needs its install script to build the
-# native binary, otherwise `next build` cannot optimize images.
-onlyBuiltDependencies:
-  - sharp
+# Packages allowed to run install scripts (pnpm 11 blocks all others by default):
+# - sharp: Next.js's image optimizer, builds a native binary
+# - unrs-resolver: native module resolver used by eslint-config-next
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
 
 # Carried over from the (now ignored) "pnpm.overrides" field in package.json.
 overrides:

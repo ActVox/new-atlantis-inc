@@ -3,126 +3,10 @@ import { ExternalLink } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { COPY, pageMetadata } from "@/lib/seo"
+import { RESOURCE_GROUPS } from "@/lib/resources"
 import { JsonLd, breadcrumbSchema, webPageSchema } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata("links")
-
-interface LinkGroup {
-  category: string
-  links: { label: string; href: string }[]
-}
-
-/**
- * KNOWN ISSUE — several labels share one href: four Cook County entries all
- * point at cookcountytreasurer.com, and idfpr.com / estado.gobierno.pr are each
- * used twice. The deep links for the individual services were not verifiable at
- * the time of writing (cookcountytreasurer.com presents an untrusted
- * certificate), and guessing URLs would trade redundant-but-working links for
- * 404s, which is strictly worse. Left as-is pending the correct URLs.
- */
-
-const linkGroups: LinkGroup[] = [
-  {
-    category: "Business Planning",
-    links: [
-      {
-        label: "Entrepreneur.com - Business Plan",
-        href: "https://www.entrepreneur.com/business-plan",
-      },
-      {
-        label: "IRS - Small Business Resources",
-        href: "https://www.irs.gov/businesses/small-businesses-self-employed",
-      },
-      {
-        label: "US Patent and Trademark Office",
-        href: "https://www.uspto.gov/",
-      },
-    ],
-  },
-  {
-    category: "Cook County Services",
-    links: [
-      {
-        label: "Cook County Recorder of Deeds Search",
-        href: "https://www.cookcountyrecorder.com/",
-      },
-      {
-        label: "Cook County Clerk of Court",
-        href: "https://www.cookcountyclerkofcourt.org/",
-      },
-      {
-        label: "Cook County Property Tax Info",
-        href: "https://www.cookcountytreasurer.com/",
-      },
-      {
-        label: "Cook County Delinquent Property Tax Search",
-        href: "https://www.cookcountytreasurer.com/",
-      },
-      {
-        label: "Cook County Tax Auction Site",
-        href: "https://www.cookcountytreasurer.com/",
-      },
-      {
-        label: "Cook County Treasurer's Office",
-        href: "https://www.cookcountytreasurer.com/",
-      },
-      {
-        label: "Cook County Assessor's Office",
-        href: "https://www.cookcountyassessor.com/",
-      },
-      {
-        label: "Cook County Clerk's Office",
-        href: "https://www.cookcountyclerk.com/",
-      },
-    ],
-  },
-  {
-    category: "Illinois State Resources",
-    links: [
-      {
-        label: "Illinois Secretary of State Business Services",
-        href: "https://www.ilsos.gov/",
-      },
-      {
-        label: "Illinois Corporation/LLC Search",
-        href: "https://www.ilsos.gov/corporatellc/",
-      },
-      {
-        label: "Illinois Revenue - Business Links",
-        href: "https://tax.illinois.gov/",
-      },
-      {
-        label: "State of Illinois Business Portal",
-        href: "https://www2.illinois.gov/business",
-      },
-      {
-        label: "Illinois Condominium Property Act",
-        href: "https://www.ilga.gov/",
-      },
-      {
-        label: "Illinois Condominium & Common Interest Community Ombudsperson",
-        href: "https://www.idfpr.com/",
-      },
-      {
-        label: "Illinois Department of Financial and Professional Regulation",
-        href: "https://www.idfpr.com/",
-      },
-    ],
-  },
-  {
-    category: "Puerto Rico & Other",
-    links: [
-      {
-        label: "Puerto Rico Annual Report Service & Filing Instructions",
-        href: "https://www.estado.gobierno.pr/",
-      },
-      {
-        label: "Puerto Rico Corporation Search",
-        href: "https://www.estado.gobierno.pr/",
-      },
-    ],
-  },
-]
 
 export default function LinksPage() {
   return (
@@ -151,7 +35,7 @@ export default function LinksPage() {
         {/* Links grid */}
         <section className="mx-auto max-w-5xl px-6 py-16">
           <div className="grid gap-8 md:grid-cols-2">
-            {linkGroups.map((group) => (
+            {RESOURCE_GROUPS.map((group) => (
               <div
                 key={group.category}
                 className="bg-card border border-border/60 p-6"
