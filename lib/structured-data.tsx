@@ -44,7 +44,9 @@ export function organizationSchema(): SchemaNode {
     description: SITE.description,
     logo: {
       "@type": "ImageObject",
-      url: `${SITE.url}/images/logo.jpg`,
+      url: `${SITE.url}/icon-512.png`,
+      width: 512,
+      height: 512,
     },
     areaServed: UNITED_STATES,
   }

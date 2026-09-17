@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Source_Sans_3, Playfair_Display } from 'next/font/google'
 
 import './globals.css'
-import { SITE, siteTitle } from '@/lib/seo'
+import { SITE, SITE_ICONS, siteTitle } from '@/lib/seo'
 import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data'
 
 const sourceSans = Source_Sans_3({
@@ -62,14 +62,7 @@ export const metadata: Metadata = {
       'max-video-preview': -1,
     },
   },
-  icons: {
-    icon: [
-      { url: '/icon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon.jpg', type: 'image/jpeg' },
-    ],
-    shortcut: '/icon-32.png',
-    apple: [{ url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' }],
-  },
+  icons: SITE_ICONS,
   category: 'business',
 }
 

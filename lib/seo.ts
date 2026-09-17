@@ -200,6 +200,27 @@ export const PILLARS: Pillar[] = [
   },
 ]
 
+/**
+ * Icon set declared in the root layout. Lives here so tests can verify every
+ * referenced file exists without importing the layout (which pulls in
+ * next/font and cannot run outside Next).
+ *
+ * /favicon.ico is what Google, Slack and most link previewers fetch by
+ * convention, ignoring <link> tags — it must exist at that exact path. The
+ * 48px and 192px sizes satisfy Google's "multiple of 48" rule for showing a
+ * favicon in search results.
+ */
+export const SITE_ICONS: NonNullable<Metadata["icons"]> = {
+  icon: [
+    { url: "/favicon.ico", sizes: "16x16 32x32 48x48", type: "image/x-icon" },
+    { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
+    { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
+    { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+  ],
+  shortcut: "/favicon.ico",
+  apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+}
+
 /** Absolute URL for a site-relative path. */
 export function absoluteUrl(path: string): string {
   return path === "/" ? `${SITE.url}/` : `${SITE.url}${path}`
