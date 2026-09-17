@@ -1,6 +1,11 @@
 import type { Config } from 'tailwindcss'
 import tailwindcssAnimate from "tailwindcss-animate"
 
+/**
+ * Design tokens live in app/globals.css; DESIGN.md explains them. Two faces
+ * only — Newsreader reads, Public Sans operates — and a radius of zero at
+ * every step, so `rounded-*` utilities are safe to leave in shadcn primitives.
+ */
 const config: Config = {
   darkMode: ['class'],
   content: [
@@ -24,6 +29,7 @@ const config: Config = {
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          hover: 'hsl(var(--primary-hover))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
@@ -38,6 +44,7 @@ const config: Config = {
           DEFAULT: 'hsl(var(--accent))',
           foreground: 'hsl(var(--accent-foreground))',
         },
+        brass: 'hsl(var(--brass))',
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
@@ -52,25 +59,28 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
-        },
       },
+      // --radius is 0; max() keeps the derived steps from going negative.
       borderRadius: {
         lg: 'var(--radius)',
-        md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)',
+        md: 'max(0px, calc(var(--radius) - 2px))',
+        sm: 'max(0px, calc(var(--radius) - 4px))',
       },
       fontFamily: {
-        sans: ['var(--font-source-sans)'],
-        serif: ['var(--font-playfair)'],
+        sans: ['var(--font-public-sans)'],
+        serif: ['var(--font-newsreader)'],
+      },
+      // The DESIGN.md type scale. Serif steps carry their own tracking.
+      fontSize: {
+        display: ['4.5rem', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        h1: ['3.5rem', { lineHeight: '1.1', letterSpacing: '-0.015em' }],
+        h2: ['2.5rem', { lineHeight: '1.15' }],
+        h3: ['1.75rem', { lineHeight: '1.25' }],
+        lead: ['1.375rem', { lineHeight: '1.5' }],
+        body: ['1.125rem', { lineHeight: '1.6' }],
+        ui: ['0.9375rem', { lineHeight: '1.5' }],
+        small: ['0.8125rem', { lineHeight: '1.5' }],
+        eyebrow: ['0.75rem', { lineHeight: '1', letterSpacing: '0.14em' }],
       },
       keyframes: {
         'accordion-down': {
@@ -89,10 +99,16 @@ const config: Config = {
             height: '0',
           },
         },
+        // The hero rose settling inside its bezel. Once, on first paint.
+        'find-north': {
+          from: { transform: 'rotate(-10deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'find-north': 'find-north 900ms cubic-bezier(0.2, 0, 0, 1) both',
       },
     },
   },
