@@ -8,7 +8,7 @@ export function SiteFooter() {
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex items-center gap-2.5">
             <Image
-              src="/favicon.jpg"
+              src="/logo.svg"
               alt="New Atlantis Inc logo"
               width={28}
               height={28}
