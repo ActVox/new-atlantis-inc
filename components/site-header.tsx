@@ -23,7 +23,7 @@ export function SiteHeader() {
       <div className="mx-auto max-w-5xl flex items-center justify-between px-6 py-4">
         <Link href="/" className="flex items-center gap-2.5 group">
           <Image
-            src="/favicon.jpg"
+            src="/logo.svg"
             alt="New Atlantis Inc logo"
             width={32}
             height={32}

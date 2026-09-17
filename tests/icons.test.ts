@@ -73,4 +73,30 @@ describe("icons", () => {
     const [w, h] = pngDimensions(path.join(PUBLIC, logo.url.replace(SITE.url, "")))
     expect([w, h]).toEqual([logo.width, logo.height])
   })
+
+  /** The vector master everything else is rendered from. */
+  it("ships the logo as a small, well-formed SVG in the brand colour", () => {
+    const file = path.join(PUBLIC, "logo.svg")
+    expect(existsSync(file)).toBe(true)
+    const svg = readFileSync(file, "utf8")
+    expect(svg.startsWith("<svg")).toBe(true)
+    expect(svg).toContain('xmlns="http://www.w3.org/2000/svg"')
+    expect(svg).toContain('viewBox="0 0 512 512"')
+    expect(svg).toContain("#0d5955") // teal sampled from the original artwork
+    expect(svg).toContain("<title")
+    expect(statSync(file).size).toBeLessThan(5_000)
+  })
+
+  /** Favicons have a solid ground so they read as a tile on dark tab strips. */
+  it("ships an SVG favicon variant with a background, distinct from the transparent logo", () => {
+    const icon = readFileSync(path.join(PUBLIC, "icon.svg"), "utf8")
+    const logo = readFileSync(path.join(PUBLIC, "logo.svg"), "utf8")
+    expect(icon).toContain('<rect width="512" height="512" fill="#efe0c3"/>')
+    // logo.svg has a <rect> inside its <mask>; what must be absent is a painted ground.
+    expect(logo).not.toContain('fill="#efe0c3"')
+  })
+
+  it("does not ship the old JPG logo with the stray badge", () => {
+    expect(existsSync(path.join(PUBLIC, "favicon.jpg"))).toBe(false)
+  })
 })

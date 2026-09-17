@@ -216,6 +216,11 @@ export const SITE_ICONS: NonNullable<Metadata["icons"]> = {
     { url: "/icon-32.png", sizes: "32x32", type: "image/png" },
     { url: "/icon-48.png", sizes: "48x48", type: "image/png" },
     { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+    // The favicon set sits on a solid parchment ground so it reads as a tile
+    // on dark tab strips; the transparent /logo.svg is the mark itself.
+    // Listed last: browsers that support SVG favicons prefer the last match,
+    // and those that don't (Safari) fall through to the ICO/PNGs above.
+    { url: "/icon.svg", type: "image/svg+xml" },
   ],
   shortcut: "/favicon.ico",
   apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],

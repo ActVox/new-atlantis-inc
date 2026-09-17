@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512" role="img" aria-labelledby="t">
+  <title id="t">New Atlantis Inc</title>
+  <defs>
+    <!-- Each point is two halves with a hairline seam along its axis. -->
+    <g id="cardinal">
+      <polygon points="1.75,-196 25,-36 1.75,0"/>
+      <polygon points="-1.75,-196 -25,-36 -1.75,0"/>
+    </g>
+    <g id="diagonal">
+      <polygon points="1.5,-108 16,-22 1.5,0"/>
+      <polygon points="-1.5,-108 -16,-22 -1.5,0"/>
+    </g>
+    <!-- Slightly larger cardinal silhouette. Knocked out of the ring and the
+         diagonal points so the cardinals read as sitting on top. -->
+    <polygon id="cut" points="0,-200 28.5,-37 0,4 -28.5,-37"/>
+    <mask id="cardinal-cut">
+      <rect width="512" height="512" fill="#fff"/>
+      <g transform="translate(256 256)" fill="#000">
+        <use href="#cut"/>
+        <use href="#cut" transform="rotate(90)"/>
+        <use href="#cut" transform="rotate(180)"/>
+        <use href="#cut" transform="rotate(270)"/>
+      </g>
+    </mask>
+  </defs>
+  <g fill="#0d5955">
+    <g mask="url(#cardinal-cut)">
+      <circle cx="256" cy="256" r="120.5" fill="none" stroke="#0d5955" stroke-width="19"/>
+      <g transform="translate(256 256)">
+        <use href="#diagonal" transform="rotate(45)"/>
+        <use href="#diagonal" transform="rotate(135)"/>
+        <use href="#diagonal" transform="rotate(225)"/>
+        <use href="#diagonal" transform="rotate(315)"/>
+      </g>
+    </g>
+    <g transform="translate(256 256)">
+      <use href="#cardinal"/>
+      <use href="#cardinal" transform="rotate(90)"/>
+      <use href="#cardinal" transform="rotate(180)"/>
+      <use href="#cardinal" transform="rotate(270)"/>
+    </g>
+  </g>
+</svg>
