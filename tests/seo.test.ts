@@ -28,8 +28,19 @@ describe("sitemap", () => {
 
   it("uses absolute canonical-domain URLs only", () => {
     for (const entry of entries) {
-      expect(entry.url.startsWith("https://www.newatlantis.us")).toBe(true)
+      expect(entry.url.startsWith(`${SITE.url}/`) || entry.url === SITE.url).toBe(true)
     }
+  })
+
+  /**
+   * Regression: the canonical origin briefly pointed at www.newatlantis.us,
+   * which was never attached to the Vercel project and failed TLS. The apex
+   * is the host that is actually served; www only redirects to it.
+   */
+  it("uses the apex host as the canonical origin, not www", () => {
+    expect(SITE.url).toBe("https://newatlantis.us")
+    expect(SITE.url).not.toContain("www.")
+    expect(SITE.url.endsWith("/")).toBe(false)
   })
 
   it("gives the home page the highest priority", () => {
