@@ -8,33 +8,41 @@
   }
 }
 
+/*
+ * Tokens are the DESIGN.md palette as HSL triplets (shadcn convention).
+ * --primary is the logo's own teal (#0d5955); nothing else on the site may
+ * introduce a second teal. --brass is capped at ~5% of any surface: eyebrow
+ * rules, ledger numerals, the active-nav tick. Never text, never a button.
+ */
 @layer base {
   :root {
-    --background: 39 32% 95%;
-    --foreground: 24 10% 20%;
-    --card: 39 40% 92%;
-    --card-foreground: 24 10% 20%;
-    --popover: 39 40% 92%;
-    --popover-foreground: 24 10% 20%;
-    --primary: 186 40% 25%;
+    --background: 39 32% 95%;       /* bone       #f6f3ee */
+    --foreground: 175 23% 10%;      /* ink        #14201f */
+    --card: 39 31% 91%;             /* bone-deep  #efeae1 */
+    --card-foreground: 175 23% 10%;
+    --popover: 39 31% 91%;
+    --popover-foreground: 175 23% 10%;
+    --primary: 177 75% 20%;         /* compass teal #0d5955 */
+    --primary-hover: 177 75% 16%;   /* #0a4643 */
     --primary-foreground: 39 32% 95%;
-    --secondary: 39 25% 88%;
-    --secondary-foreground: 24 10% 20%;
-    --muted: 39 20% 90%;
-    --muted-foreground: 24 8% 45%;
-    --accent: 186 40% 25%;
+    --secondary: 39 31% 91%;
+    --secondary-foreground: 175 23% 10%;
+    --muted: 39 31% 91%;
+    --muted-foreground: 162 5% 38%; /* ink-muted  #5c6663 */
+    --accent: 177 75% 20%;
     --accent-foreground: 39 32% 95%;
-    --destructive: 0 60% 45%;
+    --brass: 38 45% 45%;            /* #a8823f */
+    --destructive: 6 56% 41%;       /* brick      #a33a2e */
     --destructive-foreground: 39 32% 95%;
-    --border: 30 20% 82%;
-    --input: 30 20% 82%;
-    --ring: 186 40% 25%;
-    --chart-1: 186 40% 25%;
-    --chart-2: 30 50% 55%;
-    --chart-3: 24 10% 20%;
-    --chart-4: 39 40% 70%;
-    --chart-5: 186 30% 40%;
-    --radius: 0.25rem;
+    --border: 50 6% 83%;            /* hairline   #d6d5d1 = ink @ 14% on bone */
+    --input: 50 6% 83%;
+    --ring: 177 75% 20%;
+    --chart-1: 177 75% 20%;
+    --chart-2: 38 45% 45%;
+    --chart-3: 175 23% 10%;
+    --chart-4: 39 31% 91%;
+    --chart-5: 162 5% 38%;
+    --radius: 0;
   }
 }
 
@@ -44,5 +52,15 @@
   }
   body {
     @apply bg-background text-foreground;
+    font-variant-numeric: tabular-nums slashed-zero;
+  }
+  /* The one signature motion is opt-in; everyone who asks for less gets none. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition: none !important;
+    }
   }
 }
