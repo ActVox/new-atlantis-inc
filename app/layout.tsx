@@ -1,18 +1,27 @@
 import type { Metadata } from 'next'
-import { Source_Sans_3, Playfair_Display } from 'next/font/google'
+import { Newsreader, Public_Sans } from 'next/font/google'
 
 import './globals.css'
 import { SITE, SITE_ICONS, siteTitle } from '@/lib/seo'
 import { JsonLd, organizationSchema, websiteSchema } from '@/lib/structured-data'
 
-const sourceSans = Source_Sans_3({
+/**
+ * Two faces, per DESIGN.md: Newsreader reads (headings, prose), Public Sans
+ * operates (nav, buttons, forms). `axes: ['opsz']` is what makes Newsreader
+ * a real optical-size family on the web — without it Google pins opsz at 16
+ * and display sizes lose their contrast. Never pair `axes` with a fixed
+ * `weight`; next/font rejects the combination.
+ */
+const publicSans = Public_Sans({
   subsets: ['latin'],
-  variable: '--font-source-sans',
+  variable: '--font-public-sans',
 })
 
-const playfair = Playfair_Display({
+const newsreader = Newsreader({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  style: ['normal', 'italic'],
+  axes: ['opsz'],
+  variable: '--font-newsreader',
 })
 
 export const metadata: Metadata = {
@@ -72,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${sourceSans.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${publicSans.variable} ${newsreader.variable}`}>
       <body className="font-sans antialiased">
         <JsonLd data={[organizationSchema(), websiteSchema()]} />
         {children}

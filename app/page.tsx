@@ -1,107 +1,82 @@
 import type { Metadata } from "next"
-import Image from "next/image"
 import Link from "next/link"
-import { FileText, TrendingUp, ShieldCheck, Target } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
-import { ServiceCard } from "@/components/service-card"
-import { COPY, SERVICES, pageMetadata, type ServiceKey } from "@/lib/seo"
+import { ServiceRow } from "@/components/service-row"
+import { CompassInstrument } from "@/components/compass-instrument"
+import { Eyebrow } from "@/components/eyebrow"
+import { COPY, SERVICES, pageMetadata } from "@/lib/seo"
+import { buttonPrimary, buttonSecondary } from "@/lib/buttons"
 import { JsonLd, professionalServiceSchema } from "@/lib/structured-data"
 
 export const metadata: Metadata = pageMetadata("home")
 
-/**
- * Service copy lives in lib/seo.ts so JSON-LD and llms.txt reuse it; icons are
- * presentation-only. Keyed by ServiceKey, not by title, so renaming display
- * copy is a compile error here rather than a silently missing icon.
- */
-const serviceIcons: Record<ServiceKey, React.ReactNode> = {
-  "business-plan": <FileText className="h-5 w-5" />,
-  vitality: <TrendingUp className="h-5 w-5" />,
-  risk: <ShieldCheck className="h-5 w-5" />,
-  marketing: <Target className="h-5 w-5" />,
-}
-
 export default function HomePage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <JsonLd data={professionalServiceSchema()} />
       <SiteHeader />
 
       <main className="flex-1">
-        {/* Hero */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0">
-            <Image
-              src="/images/hero-map.jpg"
-              alt="Vintage nautical map with compass rose"
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-background/70 via-background/50 to-background" />
-          </div>
-
-          <div className="relative mx-auto max-w-5xl px-6 py-24 md:py-36">
-            <h1 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-foreground text-balance max-w-3xl">
+        {/*
+         * Hero: typographic, no photograph. The firm publishes no office or
+         * team, so the mark is the only honest image — see DESIGN.md.
+         */}
+        <section className="mx-auto grid max-w-6xl items-center gap-10 px-6 py-16 md:grid-cols-12 md:py-24 lg:py-28">
+          <div className="md:col-span-7">
+            <Eyebrow>Business planning · Strategy · Risk</Eyebrow>
+            <h1 className="mt-6 font-serif text-[2.75rem] leading-[1.1] tracking-[-0.015em] text-foreground text-balance md:text-h1 lg:text-[4rem]">
               {COPY.heroHeadline}
             </h1>
-            <p className="mt-8 text-lg leading-relaxed text-muted-foreground max-w-xl">
+            <p className="mt-6 max-w-[38rem] font-serif text-lead text-muted-foreground">
               {COPY.heroLead}
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground text-sm font-medium tracking-wider uppercase transition-colors hover:bg-primary/90"
-              >
+              <Link href="/contact" className={buttonPrimary}>
                 Get in Touch
               </Link>
-              <Link
-                href="/about"
-                className="inline-flex items-center px-6 py-3 border border-border text-foreground text-sm font-medium tracking-wider uppercase transition-colors hover:bg-card"
-              >
+              <Link href="/about" className={buttonSecondary}>
                 Learn More
               </Link>
             </div>
           </div>
+          <div className="order-first w-[220px] md:order-none md:col-span-5 md:w-full md:max-w-[460px] md:justify-self-end">
+            <CompassInstrument />
+          </div>
         </section>
 
-        {/* Services */}
-        <section className="mx-auto max-w-5xl px-6 py-20">
-          <div className="text-center mb-12">
-            <p className="text-sm uppercase tracking-widest text-primary mb-2">
-              Our Expertise
-            </p>
-            <h2 className="font-serif text-3xl md:text-4xl text-foreground text-balance">
-              We offer expertise in the following areas
-            </h2>
-          </div>
+        {/* Services ledger */}
+        <section className="mx-auto max-w-6xl px-6 pb-16 pt-4 md:pb-24">
+          <Eyebrow>Our expertise</Eyebrow>
+          <h2 className="mt-5 max-w-[18ch] font-serif text-h2 text-foreground text-balance">
+            We offer expertise in the following areas
+          </h2>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {SERVICES.map((service) => (
-              <ServiceCard
-                key={service.title}
-                icon={serviceIcons[service.key]}
+          <ol className="mt-10 grid border-t border-border md:grid-cols-2 md:gap-x-12">
+            {SERVICES.map((service, i) => (
+              <ServiceRow
+                key={service.key}
+                index={i + 1}
                 title={service.title}
                 items={service.items}
               />
             ))}
-          </div>
+          </ol>
         </section>
 
         {/* CTA band */}
-        <section className="border-y border-border/60 bg-card/50">
-          <div className="mx-auto max-w-5xl px-6 py-16 text-center">
-            <h2 className="font-serif text-2xl md:text-3xl text-foreground text-balance mb-4">
-              Ready to chart your course?
-            </h2>
-            <p className="text-muted-foreground leading-relaxed max-w-lg mx-auto mb-8">
-              Let us help you develop the strategies that set your business apart from the competition.
-            </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground text-sm font-medium tracking-wider uppercase transition-colors hover:bg-primary/90"
-            >
+        <section className="border-y border-border bg-card">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-8 px-6 py-16">
+            <div>
+              <Eyebrow>Next step</Eyebrow>
+              <h2 className="mt-4 font-serif text-h2 text-foreground text-balance">
+                Ready to chart your course?
+              </h2>
+              <p className="mt-3 max-w-[34rem] font-serif text-body text-muted-foreground">
+                Let us help you develop the strategies that set your business apart from the competition.
+              </p>
+            </div>
+            <Link href="/contact" className={buttonPrimary}>
               Start a Conversation
             </Link>
           </div>

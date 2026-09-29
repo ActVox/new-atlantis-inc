@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
-import { MapPin } from "lucide-react"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import { ContactForm } from "@/components/contact-form"
+import { Eyebrow } from "@/components/eyebrow"
 import { COPY, pageMetadata } from "@/lib/seo"
 import { JsonLd, breadcrumbSchema, webPageSchema } from "@/lib/structured-data"
 
@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata("contact")
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex min-h-screen flex-col">
       <JsonLd
         data={[webPageSchema("contact", "ContactPage"), breadcrumbSchema("contact")]}
       />
@@ -18,51 +18,41 @@ export default function ContactPage() {
 
       <main className="flex-1">
         {/* Page header */}
-        <section className="border-b border-border/60 bg-card/40">
-          <div className="mx-auto max-w-5xl px-6 py-16 md:py-20">
-            <p className="text-sm uppercase tracking-widest text-primary mb-4">
-              Contact
-            </p>
-            <h1 className="font-serif text-4xl md:text-5xl leading-tight text-foreground text-balance max-w-2xl">
+        <section className="border-b border-border bg-card">
+          <div className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+            <Eyebrow>Contact</Eyebrow>
+            <h1 className="mt-6 max-w-[16ch] font-serif text-h1 text-foreground text-balance md:text-display">
               Start a conversation with us
             </h1>
-            <p className="mt-4 text-lg text-muted-foreground leading-relaxed max-w-xl">
+            <p className="mt-6 max-w-[38rem] font-serif text-lead text-muted-foreground">
               {COPY.contactLead}
             </p>
           </div>
         </section>
 
         {/* Form + sidebar */}
-        <section className="mx-auto max-w-5xl px-6 py-16">
-          <div className="grid gap-12 md:grid-cols-5">
-            {/* Form */}
-            <div className="md:col-span-3 bg-card border border-border/60 p-8">
-              <h2 className="font-serif text-xl text-foreground mb-6">
-                Send us a message
-              </h2>
+        <section className="mx-auto max-w-6xl px-6 py-16 md:py-24">
+          <div className="grid gap-12 md:grid-cols-12">
+            {/* The form is an operating surface, so it sits on bone-deep. */}
+            <div className="border border-border bg-card p-8 md:col-span-7 md:p-10">
+              <h2 className="mb-8 font-serif text-h3 text-foreground">Send us a message</h2>
               <ContactForm />
             </div>
 
-            {/* Sidebar info */}
-            <aside className="md:col-span-2 space-y-8">
+            <aside className="space-y-10 md:col-span-4 md:col-start-9">
               <div>
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="flex items-center justify-center w-9 h-9 bg-primary/10 text-primary rounded-sm">
-                    <MapPin className="h-4 w-4" />
-                  </div>
-                  <h3 className="font-serif text-base text-foreground">Location</h3>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed pl-12">
+                <Eyebrow>Location</Eyebrow>
+                <p className="mt-4 text-ui text-muted-foreground">
                   Serving businesses nationwide
                 </p>
               </div>
 
-              <div className="border-t border-border/60 pt-8">
-                <p className="text-sm text-muted-foreground leading-relaxed italic">
-                  {`"${COPY.pullQuote}"`}
+              <div className="border-t border-border pt-8">
+                <p className="font-serif text-lead italic text-foreground">
+                  {`“${COPY.pullQuote}”`}
                 </p>
-                <p className="text-xs text-muted-foreground mt-2">
-                  {'— New Atlantis Inc'}
+                <p className="mt-4 text-eyebrow uppercase text-muted-foreground">
+                  New Atlantis Inc
                 </p>
               </div>
             </aside>
